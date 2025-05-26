@@ -1,293 +1,102 @@
-# AI-Powered Code Analysis & Assistant System
+# Code Analysis System
 
-A complete AI coding assistant inspired by Cursor that can understand, generate, modify, and debug code. This system combines advanced codebase analysis with LLM integration to provide intelligent coding assistance.
+A comprehensive code analysis system using structural parsing, cryptographic hashing, Merkle trees, and semantic embeddings for understanding codebases.
 
-## Features
+## 🏗️ Architecture
 
-🔍 **Structural Code Parsing**
-- Extracts meaningful code units (functions, classes, methods)
-- Supports Python with extensible architecture for other languages
-- Calculates complexity metrics and extracts documentation
+### Core Modules
 
-🔐 **Cryptographic Fingerprinting**
-- SHA-256 hashing of code chunks for change detection
-- Merkle tree organization for hierarchical change tracking
-- Encrypted file paths for privacy protection
+- **`core/config.py`** - Configuration management and settings
+- **`core/code_parser.py`** - Code parsing utilities for extracting meaningful chunks
+- **`core/crypto.py`** - Cryptographic utilities for path encryption and data protection
+- **`core/fingerprint.py`** - Fingerprinting and change detection using cryptographic hashes
+- **`core/embeddings.py`** - Semantic embedding generation for code understanding
+- **`core/storage.py`** - Vector database operations for storing and querying embeddings
+- **`core/analyzer.py`** - Main analyzer orchestrating the entire pipeline
+- **`core/llm_integration.py`** - LLM integration for code generation and modification
+- **`core/code_executor.py`** - Code execution and testing utilities
+- **`core/augment_engine.py`** - Main augment engine for code analysis and generation
+- **`core/intelligent_augment_engine.py`** - Enhanced augment engine with advanced features
 
-🧠 **Semantic Understanding**
-- Generates vector embeddings for code chunks
-- Semantic similarity search capabilities
-- Metadata-rich storage for advanced filtering
+### Main Interface
 
-⚡ **Efficient Change Detection**
-- Incremental updates - only processes changed files
-- Millisecond-level change detection via hash comparison
-- Parallel processing for large codebases
+- **`main.py`** - CLI interface for the code analysis system
 
-🔒 **Privacy-First Design**
-- Encrypted file paths in storage
-- No actual code content stored in embeddings database
-- Local-first operation (no remote dependencies)
+## 🚀 Features
 
-🤖 **AI-Powered Assistance**
-- Natural language code generation
-- Intelligent code modification and refactoring
-- AI-powered debugging and error analysis
-- Interactive coding sessions
-- Context-aware suggestions
+- **Code Parsing**: Extract functions, classes, methods, and imports from source code
+- **Cryptographic Security**: Encrypt file paths and generate secure hashes
+- **Change Detection**: Use Merkle trees for hierarchical change detection
+- **Semantic Understanding**: Generate embeddings for code similarity and search
+- **LLM Integration**: Automatic code generation and modification capabilities
+- **Vector Storage**: Efficient storage and retrieval of code embeddings
 
-🧪 **Safe Code Execution**
-- Sandboxed code testing environment
-- Automatic validation and safety checks
-- Real-time execution feedback
-- Test case generation and validation
+## 📁 Project Structure
 
-## Installation
+```
+├── core/                    # Core system modules
+├── examples/               # Example projects and sample code
+│   ├── demo_project/      # Demo project with sample files
+│   ├── ml_project/        # Machine learning project example
+│   ├── sample_code/       # Basic code samples
+│   └── test_project/      # Test project files
+├── codebase_db/           # Vector database storage
+├── main.py                # Main CLI interface
+├── requirements.txt       # Python dependencies
+└── README.md             # This file
+```
 
-1. Clone or download the project files
-2. Install dependencies:
+## 🛠️ Installation
 
+1. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-## Quick Start
-
-### 1. Run the Demos
-
+2. Run the system:
 ```bash
-# Basic analysis demo
-python demo.py
-
-# AI-powered features demo
-python ai_demo.py
+python main.py
 ```
 
-These will demonstrate all system capabilities including AI features.
+## 📖 Usage
 
-### 2. Analyze Your Codebase
+The system can analyze codebases, generate embeddings, detect changes, and integrate with LLMs for code generation and modification.
 
-```bash
-# Analyze current directory
-python main.py analyze .
+### Basic Analysis
+```python
+from core.analyzer import CodebaseAnalyzer
 
-# Analyze specific directory recursively
-python main.py analyze /path/to/your/code -r
-
-# Analyze only specific file types
-python main.py analyze . -e "py,js,ts"
-
-# Force re-analysis of all files
-python main.py analyze . -f
+analyzer = CodebaseAnalyzer()
+results = analyzer.analyze_path("path/to/code")
 ```
 
-### 3. Search Your Code
+### Code Generation
+```python
+from core.augment_engine import AugmentEngine
 
-```bash
-# Semantic search
-python main.py search "database connection"
-python main.py search "error handling" --limit 10
-
-# Filter by type
-python main.py search "validation" --type function
-
-# Set similarity threshold
-python main.py search "authentication" --min-similarity 0.7
+engine = AugmentEngine()
+result = engine.process_command("create a function that calculates fibonacci")
 ```
 
-### 4. Browse Code Chunks
+## 🔧 Configuration
 
-```bash
-# List all chunks
-python main.py list-chunks
+Configuration is managed through `core/config.py`. Key settings include:
 
-# Filter by type
-python main.py list-chunks --type class
+- Supported file extensions
+- Ignore patterns for files/directories
+- Database paths
+- LLM integration settings
+- Encryption settings
 
-# Filter by complexity
-python main.py list-chunks --complexity 5
+## 🎯 Key Components
 
-# Filter by parent class
-python main.py list-chunks --parent "DataProcessor"
-```
+1. **Parser**: Extracts meaningful code chunks using AST parsing
+2. **Fingerprinting**: Creates cryptographic fingerprints for change detection
+3. **Embeddings**: Generates semantic embeddings for code understanding
+4. **Storage**: Vector database for efficient similarity search
+5. **LLM Integration**: Connects to language models for code generation
+6. **Augment Engine**: Orchestrates the entire analysis and generation pipeline
 
-### 5. View Statistics
+## 📝 License
 
-```bash
-python main.py stats
-```
-
-### 6. AI-Powered Code Generation
-
-```bash
-# Generate code from natural language
-python main.py generate "create a function to sort a list of dictionaries by a key"
-
-# Generate with codebase context
-python main.py generate "add error handling to the calculator" --codebase ./my_project
-```
-
-### 7. Intelligent Code Modification
-
-```bash
-# Plan modifications (dry run)
-python main.py modify "add logging to all functions" ./my_project
-
-# Execute modifications
-python main.py modify "refactor the database connection code" ./my_project --execute
-```
-
-### 8. AI Debugging
-
-```bash
-# Debug problematic code
-python main.py debug "def divide(a, b): return a/b" --error-desc "division by zero"
-```
-
-### 9. Safe Code Testing
-
-```bash
-# Test code execution safely
-python main.py test "print('Hello, World!')"
-```
-
-### 10. Interactive AI Session
-
-```bash
-# Start interactive coding session
-python main.py chat
-
-# With codebase context
-python main.py chat --codebase ./my_project
-```
-
-## System Architecture
-
-### Core Components
-
-1. **Parser** (`parser.py`)
-   - AST-based code parsing
-   - Extracts functions, classes, methods, imports
-   - Calculates complexity metrics
-   - Extensible for multiple languages
-
-2. **Fingerprinting** (`fingerprint.py`)
-   - SHA-256 content hashing
-   - Merkle tree construction
-   - Change detection algorithms
-   - Fingerprint persistence
-
-3. **Embeddings** (`embeddings.py`)
-   - Semantic vector generation
-   - Similarity calculations
-   - Batch processing for efficiency
-   - Fallback for offline operation
-
-4. **Storage** (`storage.py`)
-   - ChromaDB vector database
-   - Metadata filtering
-   - Similarity search
-   - Privacy-preserving storage
-
-5. **Analyzer** (`analyzer.py`)
-   - Orchestrates the entire pipeline
-   - Parallel file processing
-   - Change detection coordination
-   - Statistics collection
-
-### Data Flow
-
-```
-Code Files → Parser → Chunks → Fingerprinting → Embeddings → Vector DB
-                ↓              ↓                    ↓
-            AST Analysis   Hash + Merkle      Semantic Vectors
-```
-
-## Configuration
-
-Edit `config.py` to customize:
-
-- **File Extensions**: Which file types to analyze
-- **Chunk Sizes**: Minimum/maximum code chunk sizes
-- **Embedding Model**: Which model to use for embeddings
-- **Ignore Patterns**: Files/directories to skip
-- **Database Path**: Where to store the vector database
-
-## Privacy & Security
-
-- **Encrypted Paths**: File paths are encrypted before storage
-- **No Code Storage**: Only embeddings and metadata stored, not actual code
-- **Local Operation**: Everything runs locally, no data sent to external services
-- **Secure Keys**: Encryption keys stored with restricted permissions
-
-## Performance
-
-- **Parallel Processing**: Multi-threaded file analysis
-- **Incremental Updates**: Only processes changed files
-- **Efficient Storage**: Optimized vector database operations
-- **Memory Management**: Batch processing to handle large codebases
-
-## Extending the System
-
-### Adding New Languages
-
-1. Create a new parser class in `parser.py`
-2. Implement the parsing logic for your language
-3. Add the file extension to `config.py`
-4. Register the parser in `UniversalParser`
-
-### Custom Embedding Models
-
-1. Modify `embeddings.py` to use your preferred model
-2. Update the embedding dimension in `config.py`
-3. Ensure the model can handle code-specific text
-
-### Additional Metadata
-
-1. Extend the `CodeChunk` dataclass in `parser.py`
-2. Update the fingerprinting logic in `fingerprint.py`
-3. Modify storage schema in `storage.py`
-
-## Troubleshooting
-
-### Common Issues
-
-1. **Import Errors**: Ensure all dependencies are installed
-2. **Permission Errors**: Check file permissions for database directory
-3. **Memory Issues**: Reduce batch size in `config.py`
-4. **Slow Performance**: Enable parallel processing and check ignore patterns
-
-### Debug Mode
-
-Set environment variable for verbose output:
-```bash
-export DEBUG=1
-python main.py analyze .
-```
-
-## Comparison with Cursor
-
-| Feature | This Implementation | Cursor |
-|---------|-------------------|---------|
-| Structural Parsing | ✅ AST-based | ✅ Advanced |
-| Fingerprinting | ✅ SHA-256 + Merkle | ✅ Proprietary |
-| Embeddings | ✅ Local models | ✅ TurboPuffer |
-| Privacy | ✅ Encrypted paths | ✅ Full encryption |
-| Change Detection | ✅ Hash-based | ✅ Millisecond |
-| Languages | 🔄 Python + extensible | ✅ Multi-language |
-| Scale | 🔄 Medium codebases | ✅ Enterprise |
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Add tests for new functionality
-4. Submit a pull request
-
-## License
-
-MIT License - see LICENSE file for details.
-
-## Acknowledgments
-
-Inspired by the Cursor AI code editor and their innovative approach to codebase understanding.
+This project is a code analysis and generation system designed for understanding and modifying codebases using advanced AI techniques.
