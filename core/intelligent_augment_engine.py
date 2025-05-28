@@ -1004,10 +1004,11 @@ RETURN ONLY EXECUTABLE PYTHON CODE:"""
             iterations += 1
 
             try:
-                # Execute the main file
+                # Execute the main file using relative path from codebase directory
+                main_file_name = main_file.name  # Just the filename, not full path
                 result = subprocess.run(
-                    ['python', str(main_file)],
-                    cwd=str(codebase_path),
+                    ['python', main_file_name],
+                    cwd=str(codebase_path.absolute()),  # Ensure absolute path for cwd
                     capture_output=True,
                     text=True,
                     timeout=30
@@ -1024,7 +1025,13 @@ RETURN ONLY EXECUTABLE PYTHON CODE:"""
                 else:
                     # Error occurred
                     error_output = result.stderr
-                    self.console.print(f"[yellow]Iteration {iterations} failed: {error_output[:200]}...[/yellow]")
+                    stdout_output = result.stdout
+                    self.console.print(f"[yellow]Iteration {iterations} failed:[/yellow]")
+                    self.console.print(f"[red]STDERR: {error_output[:300]}[/red]")
+                    if stdout_output:
+                        self.console.print(f"[blue]STDOUT: {stdout_output[:200]}[/blue]")
+                    self.console.print(f"[yellow]Working directory: {codebase_path.absolute()}[/yellow]")
+                    self.console.print(f"[yellow]Executing: python {main_file_name}[/yellow]")
 
                     if iterations < max_iterations:
                         # Try to fix the error by regenerating the main file
